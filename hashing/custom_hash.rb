@@ -1,15 +1,15 @@
 require_relative 'pair'
 
 class CustomHash
-  BINS_SIZE = 11
+  TABLE_SIZE = 11
 
   def initialize()
-    @bins = []
+    @table = []
   end
 
   def get(key)
-    hash = key.hash % BINS_SIZE
-    bin = @bins[hash] ||= []
+    hash = key.hash % TABLE_SIZE
+    bin = @table[hash] ||= []
 
     result = bin.find do |pair|
       pair.key.eql?(key)
@@ -19,8 +19,8 @@ class CustomHash
   end
 
   def put(key, value)
-    hash = key.hash % BINS_SIZE
-    bin = @bins[hash] ||= []
+    hash = key.hash % TABLE_SIZE
+    bin = @table[hash] ||= []
 
     bin.any? do |pair|
       if pair.key.eql?(key)
