@@ -3,13 +3,13 @@ require_relative 'pair'
 class CustomHash
   TABLE_SIZE = 11
 
-  def initialize()
-    @table = []
+  def initialize
+    @table = Array.new(TABLE_SIZE) { [] }
   end
 
   def get(key)
     hash = key.hash % TABLE_SIZE
-    bin = @table[hash] ||= []
+    bin = @table[hash]
 
     result = bin.find do |pair|
       pair.key.eql?(key)
@@ -20,7 +20,7 @@ class CustomHash
 
   def put(key, value)
     hash = key.hash % TABLE_SIZE
-    bin = @table[hash] ||= []
+    bin = @table[hash]
 
     bin.any? do |pair|
       if pair.key.eql?(key)
